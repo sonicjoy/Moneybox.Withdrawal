@@ -24,3 +24,41 @@ As part of this process however, you should look to refactor some of the code in
 Once you have completed test, zip up your solution, excluding any build artifacts to reduce the size, and email it back to our recruitment team.
 
 Good luck!
+
+---
+
+# Solution
+
+The solution contains an additional folder `tests` which contains the unit tests for the core logic, apart from the original `src` folder.
+The solution requires .NET Core 8.0 to run the tests.
+
+## How to build and test the solution
+
+### To build and test the solution, follow these steps:
+
+1. Open the solution in Visual Studio or your preferred IDE.
+2. Build the solution to ensure that all dependencies are resolved and the project compiles successfully.
+3. Open the test project located in the `tests` folder.
+4. Run the unit tests using a test runner or the built-in test explorer in your IDE.
+5. Verify that all tests pass without any failures or errors.
+
+### To build and test the solution using the command line interface (CLI), follow these steps:
+
+1. Open a terminal or command prompt.
+2. Navigate to the root folder of the solution (`/c:/Users/sonic/source/repos/MoneyBox/moneybox-withdrawal-master`).
+3. Build the solution by running the following command:
+    ```
+    dotnet build
+    ```
+    This will compile the project and resolve any dependencies.
+4. Navigate to the test project folder (`/c:/Users/sonic/source/repos/MoneyBox/moneybox-withdrawal-master/tests`).
+5. Run the unit tests using the following command:
+    ```
+    dotnet test
+    ```
+    This will execute the tests and provide the test results.
+6. Verify that all tests pass without any failures or errors.
+
+Make sure you have the .NET Core SDK installed on your machine before running the above commands.
+
+
