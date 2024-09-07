@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Moneybox.App.Domain
 {
@@ -10,8 +11,10 @@ namespace Moneybox.App.Domain
 
         private const decimal NotifyThreshold = 500m;
 
+		[Key]
 		public Guid Id { get; init; }
 
+		[Required]
         public User User { get; init; }
 
         public decimal Balance { get; private set; }

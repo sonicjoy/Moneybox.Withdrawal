@@ -1,13 +1,17 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Moneybox.App.Domain
 {
     public class User
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid Id { get; init; }
 
-        public string Name { get; set; }
+        public string Name { get; init; } //should have max length for security reasons
 
-        public string Email { get; set; }
+		[Required]
+        [EmailAddress]
+        public string Email { get; init; }
     }
 }
