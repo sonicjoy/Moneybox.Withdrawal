@@ -3,16 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Moneybox.App.Domain
 {
-    public class Account
+    public class Account : EntityBase
     {
         private const decimal PayInLimit = 4000m;
 
         private const decimal BalanceLimit = 0m;
 
         private const decimal NotifyThreshold = 500m;
-
-		[Key]
-		public Guid Id { get; init; }
 
 		[Required]
         public User User { get; init; }

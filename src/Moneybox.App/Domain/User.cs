@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Moneybox.App.Domain
 {
-    public class User
+    public class User : EntityBase
     {
-        [Key]
-        public Guid Id { get; init; }
-
+        [MaxLength(1000, ErrorMessage = "Your name is longer than 1000 characters, get help")]
         public string Name { get; init; } //should have max length for security reasons
 
 		[Required]
