@@ -18,34 +18,29 @@ public class TransferMoneyTests : IDisposable
 		_mockNotificationService.VerifyAll();
 	}
 
-	[Fact]
-	public void TransferMoney_from_account_should_have_correct_end_balance()
+	private (TransferMoney, Guid, Guid, Account, Account) ArrangeCommonTestSetup(
+		decimal fromBalance = 1000, decimal fromWithdrawn = 1000, decimal toBalance = 0, decimal toPaidIn = 0)
 	{
-		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(1000, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
+		var fromUser = new User(Guid.NewGuid(), "from@email");
+		var fromAccount = new Account(fromAccountId, fromUser, fromBalance, fromWithdrawn, 0);
 
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(1000, 1000, 0)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
+		var toUser = new User(Guid.NewGuid(), "to@email");
+		var toAccount = new Account(toAccountId, toUser, toBalance, 0, toPaidIn);
 
 		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
 		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
 
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		return (new TransferMoney(_mockRepository.Object, _mockNotificationService.Object), fromAccountId, toAccountId,
+			fromAccount, toAccount);
+	}
+
+	[Fact]
+	public void TransferMoney_from_account_should_have_correct_end_balance()
+	{
+		//arrange
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup();
 
 		//act
 		service.Execute(fromAccountId, toAccountId, 500);
@@ -58,60 +53,20 @@ public class TransferMoneyTests : IDisposable
 	public void TransferMoney_to_account_should_have_correct_end_balance()
 	{
 		//arrange
-		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(1000, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(1000, 1000, 0)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
-		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup();
 
 		//act
 		service.Execute(fromAccountId, toAccountId, 500);
 
 		//assert
-		Assert.Equal(1500, toAccount.Balance);
+		Assert.Equal(500, toAccount.Balance);
 	}
 
 	[Fact]
 	public void TransferMoney_from_account_should_have_correct_end_withdrawn()
 	{
 		//arrange
-		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(1000, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(1000, 1000, 0)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
-		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup();
 
 		//act
 		service.Execute(fromAccountId, toAccountId, 500);
@@ -124,27 +79,7 @@ public class TransferMoneyTests : IDisposable
 	public void TransferMoney_to_account_should_have_correct_end_paid_in()
 	{
 		//arrange
-		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(1000, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(1000, 1000, 0)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
-		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup();
 
 		//act
 		service.Execute(fromAccountId, toAccountId, 500);
@@ -157,30 +92,10 @@ public class TransferMoneyTests : IDisposable
 	public void TransferMoney_should_throw_InvalidOperationException_when_from_account_has_insufficient_balance()
 	{
 		//arrange
-		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(400, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(1000, 1000, 0)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
-		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup();
 
 		//act
-		void Act() => service.Execute(fromAccountId, toAccountId, 500);
+		void Act() => service.Execute(fromAccountId, toAccountId, 1500);
 
 		//assert
 		Assert.Throws<InvalidOperationException>(Act);
@@ -190,30 +105,10 @@ public class TransferMoneyTests : IDisposable
 	public void TransferMoney_should_notify_when_funds_are_lower_than_threshold()
 	{
 		//arrange
-		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(900, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(0, 1000, 0)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
-		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup();
 
 		//act
-		service.Execute(fromAccountId, toAccountId, 500);
+		service.Execute(fromAccountId, toAccountId, 600);
 
 		//assert
 		_mockNotificationService.Verify(x => x.NotifyFundsLow(fromAccount.User.Email), Times.Once);
@@ -223,30 +118,10 @@ public class TransferMoneyTests : IDisposable
 	public void TransferMoney_should_throw_InvalidOperationException_when_to_account_pay_in_limit_reached()
 	{
 		//arrange
-		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(1000, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(1000, 1000, 4000)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
-		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup(toPaidIn: 3500);
 
 		//act
-		void Act() => service.Execute(fromAccountId, toAccountId, 500);
+		void Act() => service.Execute(fromAccountId, toAccountId, 1000);
 
 		//assert
 		Assert.Throws<InvalidOperationException>(Act);
@@ -256,30 +131,10 @@ public class TransferMoneyTests : IDisposable
 	public void TransferMoney_should_notify_when_approaching_pay_in_limit()
 	{
 		//arrange
-		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account(1000, 1000, 0)
-		{
-			Id = fromAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account(1000, 1000, 3500)
-		{
-			Id = toAccountId,
-			User = new User
-			{
-				Email = "test@email"
-			}
-		};
-		_mockRepository.Setup(x => x.GetAccountById(fromAccountId)).Returns(fromAccount);
-		_mockRepository.Setup(x => x.GetAccountById(toAccountId)).Returns(toAccount);
-		var service = new TransferMoney(_mockRepository.Object, _mockNotificationService.Object);
+		var (service, fromAccountId, toAccountId, fromAccount, toAccount) = ArrangeCommonTestSetup(toPaidIn: 3000);
 
 		//act
-		service.Execute(fromAccountId, toAccountId, 500);
+		service.Execute(fromAccountId, toAccountId, 600);
 
 		//assert
 		_mockNotificationService.Verify(x => x.NotifyApproachingPayInLimit(toAccount.User.Email), Times.Once);

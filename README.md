@@ -30,7 +30,7 @@ Good luck!
 # Solution
 
 The solution contains an additional folder `tests` which contains the unit tests for the core logic, apart from the original `src` folder.
-The solution requires .NET Core 8.0 to run the tests.
+The solution requires .NET Core 8.0 to run.
 
 ## How to build and test the solution
 

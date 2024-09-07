@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Moneybox.App.Domain
 {
-    public class Account : EntityBase
+    public record Account(Guid Id, User User, decimal Balance, decimal Withdrawn, decimal PaidIn) : EntityBase(Id)
     {
         private const decimal PayInLimit = 4000m;
 
@@ -11,23 +11,13 @@ namespace Moneybox.App.Domain
 
         private const decimal NotifyThreshold = 500m;
 
-		[Required]
-        public User User { get; init; }
+        public decimal Balance { get; private set; } = Balance;
 
-        public decimal Balance { get; private set; }
+        public decimal Withdrawn { get; private set; } = Withdrawn;
 
-        public decimal Withdrawn { get; private set; }
+        public decimal PaidIn { get; private set; } = PaidIn;
 
-        public decimal PaidIn { get; private set; }
-
-        public Account(decimal balance, decimal withdrawn, decimal paidIn)
-        {
-			Balance = balance;
-			Withdrawn = withdrawn;
-			PaidIn = paidIn;
-		}
-
-		public void Withdraw(decimal amount)
+        public void Withdraw(decimal amount)
 		{
 			if (InsufficientFund(amount))
 			{

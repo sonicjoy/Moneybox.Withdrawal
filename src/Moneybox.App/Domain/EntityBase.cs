@@ -3,9 +3,5 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Moneybox.App.Domain
 {
-	public abstract class EntityBase
-	{
-		[Key]
-		public Guid Id { get; init; }
-	}
+	public abstract record EntityBase([property: Key]Guid Id);
 }
