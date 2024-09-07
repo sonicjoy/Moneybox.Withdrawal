@@ -32,6 +32,9 @@ Good luck!
 The solution contains an additional folder `tests` which contains the unit tests for the core logic, apart from the original `src` folder.
 The solution requires .NET Core 8.0 to run the tests.
 
+## Clone the solution
+You should clone the solution first from the `master` branch to your chosen local folder.
+
 ## How to build and test the solution
 
 ### To build and test the solution, follow these steps:
@@ -45,13 +48,13 @@ The solution requires .NET Core 8.0 to run the tests.
 ### To build and test the solution using the command line interface (CLI), follow these steps:
 
 1. Open a terminal or command prompt.
-2. Navigate to the root folder of the solution (`/c:/Users/sonic/source/repos/MoneyBox/moneybox-withdrawal-master`).
+2. Navigate to the root folder of the solution (`/<solution-folder>/src/Moneybox.App`).
 3. Build the solution by running the following command:
     ```
     dotnet build
     ```
     This will compile the project and resolve any dependencies.
-4. Navigate to the test project folder (`/c:/Users/sonic/source/repos/MoneyBox/moneybox-withdrawal-master/tests`).
+4. Navigate to the test project folder (`/<solution-folder>/tests/Moneybox.App.Tests`).
 5. Run the unit tests using the following command:
     ```
     dotnet test
