@@ -23,10 +23,9 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(1000, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
@@ -34,10 +33,9 @@ public class TransferMoneyTests : IDisposable
 		};
 
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(1000, 1000, 0)
 		{
 			Id = toAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
@@ -61,20 +59,18 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(1000, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
 			}
 		};
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(1000, 1000, 0)
 		{
 			Id = toAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
@@ -96,21 +92,18 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(1000, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 1000,
-			Withdrawn = 1000,
 			User = new User
 			{
 				Email = "test@email"
 			}
 		};
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(1000, 1000, 0)
 		{
 			Id = toAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
@@ -132,20 +125,18 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(1000, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
 			}
 		};
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(1000, 1000, 0)
 		{
 			Id = toAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
@@ -167,17 +158,16 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(400, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 400,
 			User = new User
 			{
 				Email = "test@email"
 			}
 		};
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(1000, 1000, 0)
 		{
 			Id = toAccountId,
 			User = new User
@@ -201,20 +191,18 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(900, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 900,
 			User = new User
 			{
 				Email = "test@email"
 			}
 		};
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(0, 1000, 0)
 		{
 			Id = toAccountId,
-			Balance = 0,
 			User = new User
 			{
 				Email = "test@email"
@@ -236,21 +224,18 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(1000, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
 			}
 		};
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(1000, 1000, 4000)
 		{
 			Id = toAccountId,
-			Balance = 1000,
-			PaidIn = 4000,
 			User = new User
 			{
 				Email = "test@email"
@@ -272,21 +257,18 @@ public class TransferMoneyTests : IDisposable
 	{
 		//arrange
 		var fromAccountId = Guid.NewGuid();
-		var fromAccount = new Account
+		var fromAccount = new Account(1000, 1000, 0)
 		{
 			Id = fromAccountId,
-			Balance = 1000,
 			User = new User
 			{
 				Email = "test@email"
 			}
 		};
 		var toAccountId = Guid.NewGuid();
-		var toAccount = new Account
+		var toAccount = new Account(1000, 1000, 3500)
 		{
 			Id = toAccountId,
-			Balance = 1000,
-			PaidIn = 3500,
 			User = new User
 			{
 				Email = "test@email"
