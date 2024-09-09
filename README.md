@@ -35,9 +35,6 @@ The solution requires .NET Core 8.0 to run.
 ## Clone the solution
 You should clone the solution first from the `master` branch to your chosen local folder.
 
-## Clone the solution
-You should clone the solution first from the `master` branch to your chosen local folder.
-
 ## How to build and test the solution
 
 ### To build and test the solution, follow these steps:
