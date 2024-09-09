@@ -2,7 +2,6 @@ using Moneybox.App.DataAccess;
 using Moneybox.App.Domain;
 using Moneybox.App.Domain.Services;
 using Moneybox.App.Features;
-using Moq;
 
 namespace Moneybox.App.Tests;
 
