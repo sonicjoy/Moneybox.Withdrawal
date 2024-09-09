@@ -30,7 +30,10 @@ Good luck!
 # Solution
 
 The solution contains an additional folder `tests` which contains the unit tests for the core logic, apart from the original `src` folder.
-The solution requires .NET Core 8.0 to run the tests.
+The solution requires .NET Core 8.0 to run.
+
+## Clone the solution
+You should clone the solution first from the `master` branch to your chosen local folder.
 
 ## Clone the solution
 You should clone the solution first from the `master` branch to your chosen local folder.
